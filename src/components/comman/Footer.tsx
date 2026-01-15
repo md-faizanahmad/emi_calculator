@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Mail, Rss, Github, Twitter } from "lucide-react";
+import { Mail } from "lucide-react";
 import Link from "next/link";
 
 const Footer: FC = () => {
@@ -104,13 +104,8 @@ const Footer: FC = () => {
                 className="flex items-center justify-center md:justify-start text-sm text-gray-600 hover:text-blue-600 transition-colors"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                nerdnestt@gmail.com
+                md.faizan.ahmad.web@gmail.com
               </a>
-              <div className="flex gap-4 justify-center md:justify-start mt-2">
-                <Twitter className="w-5 h-5 text-gray-400 hover:text-blue-400 cursor-pointer" />
-                <Github className="w-5 h-5 text-gray-400 hover:text-gray-900 cursor-pointer" />
-                <Rss className="w-5 h-5 text-gray-400 hover:text-orange-500 cursor-pointer" />
-              </div>
             </div>
           </div>
         </div>
@@ -120,7 +115,7 @@ const Footer: FC = () => {
           <p className="text-sm text-gray-500" itemProp="copyrightNotice">
             © {new Date().getFullYear()} NerdNest Blog. Designed by{" "}
             <a
-              href="https://md-faizan-ahmad.web.app/"
+              href="https://mdfaizanahmad.in"
               className="font-medium text-blue-600 hover:underline"
             >
               Md Faizan Ahmad
