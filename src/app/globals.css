@@ -31,3 +31,12 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
