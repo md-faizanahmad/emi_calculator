@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calculator, Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Calculator, Menu, X } from "lucide-react";
+// import { useTheme } from "next-themes";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  // const { theme, setTheme } = useTheme();
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
@@ -89,13 +89,13 @@ export const Header: React.FC = () => {
 
           {/* Mobile Menu Controls */}
           <div className="md:hidden flex items-center gap-2">
-            <button
+            {/* <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2"
               style={{ color: "var(--foreground)" }}
             >
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            </button> */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-lg"

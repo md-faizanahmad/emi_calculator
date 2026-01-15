@@ -45,7 +45,7 @@ export default function HeroClient({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="relative pt-16 pb-20 sm:pt-24 sm:pb-32 lg:pt-32 lg:pb-40 px-4"
+      className="relative pt-16 pb-20 sm:pt-24 sm:pb-32 lg:pt-6 lg:pb-16 px-4"
     >
       {/* Background stays global from body grid in globals.css */}
 
