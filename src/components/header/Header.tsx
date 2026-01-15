@@ -75,7 +75,7 @@ export const Header: React.FC = () => {
             />
 
             {/* Premium Theme Switcher Button */}
-            <button
+            {/* <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2.5 rounded-xl transition-all hover:ring-2 ring-sky-400"
               style={{
@@ -84,7 +84,7 @@ export const Header: React.FC = () => {
               }}
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+            </button> */}
           </div>
 
           {/* Mobile Menu Controls */}
