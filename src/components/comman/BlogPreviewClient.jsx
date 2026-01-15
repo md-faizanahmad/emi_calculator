@@ -29,7 +29,7 @@ export default function BlogPreviewClient({ blogPosts }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="min-w-[78%] sm:min-w-full snap-center bg-white rounded-2xl border border-gray-100 
+            className="min-w-[60%] sm:min-w-full snap-center bg-white rounded-2xl border border-gray-100 
                        shadow-sm hover:shadow-md transition-all flex flex-col shrink-0 group"
           >
             {/* Main Content Padding */}

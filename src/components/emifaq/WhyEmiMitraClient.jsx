@@ -5,16 +5,18 @@ export default function WhyEmiMitraClient({ benefits }) {
   return (
     <section className="py-12 px-4 overflow-hidden">
       <h2
-        className="text-3xl sm:text-4xl font-black text-center mb-8 sm:mb-12 tracking-tighter"
+        className="text-2xl sm:text-4xl font-black text-center mb-8 sm:mb-12 tracking-tighter"
         style={{ color: "var(--foreground)" }}
       >
         Why Use <span className="text-sky-400">EMI Mitra?</span>
       </h2>
 
-      {/* Horizontal Swiper for Mobile, Grid for Desktop */}
+      {/* 1. Changed gap to 3 on mobile (gap-3)
+          2. min-w-[65%] makes cards narrower so you see more of the next card
+      */}
       <div
-        className="flex overflow-x-auto pb-6 gap-4 snap-x snap-mandatory scrollbar-hide 
-                   sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:max-w-6xl sm:mx-auto sm:overflow-visible sm:pb-0"
+        className="flex overflow-x-auto pb-6 gap-3 snap-x snap-mandatory scrollbar-hide 
+                   sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 sm:max-w-6xl sm:mx-auto sm:overflow-visible sm:pb-0"
       >
         {benefits.map((benefit, index) => (
           <motion.div
@@ -27,27 +29,26 @@ export default function WhyEmiMitraClient({ benefits }) {
               backgroundColor: "var(--card-bg)",
               borderColor: "var(--border)",
             }}
-            // Compact styling: p-5 on mobile, p-8 on desktop
-            // MD styling: shadow-sm, rounded-2xl
-            className="min-w-[70%] sm:min-w-full snap-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl 
+            // Reduced mobile padding (p-5) and width (min-w-[65%])
+            className="min-w-[65%] sm:min-w-full snap-center p-5 sm:p-8 rounded-2xl sm:rounded-3xl 
                        border backdrop-blur-md shadow-sm hover:shadow-md 
                        hover:border-sky-400/50 transition-all group shrink-0"
           >
             <div className="flex flex-col items-start">
-              {/* Smaller icon for mobile */}
-              <span className="text-4xl sm:text-5xl mb-4 sm:mb-6 block group-hover:scale-110 transition-transform">
+              {/* Scaled down icon for mobile */}
+              <span className="text-3xl sm:text-5xl mb-3 sm:mb-6 block group-hover:scale-110 transition-transform">
                 {benefit.icon}
               </span>
 
               <h3
-                className="text-lg sm:text-xl font-bold mb-2 sm:mb-3"
+                className="text-base sm:text-xl font-bold mb-1 sm:mb-3 leading-tight"
                 style={{ color: "var(--foreground)" }}
               >
                 {benefit.title}
               </h3>
 
               <p
-                className="text-sm sm:text-base opacity-75 leading-relaxed"
+                className="text-xs sm:text-base opacity-75 leading-relaxed line-clamp-3 sm:line-clamp-none"
                 style={{ color: "var(--foreground)" }}
               >
                 {benefit.description}
@@ -57,8 +58,8 @@ export default function WhyEmiMitraClient({ benefits }) {
         ))}
       </div>
 
-      {/* Visual Swipe Indicator for Mobile */}
-      <div className="flex justify-center gap-1.5 mt-2 sm:hidden">
+      {/* Visual Swipe Indicator */}
+      <div className="flex justify-center gap-1 mt-4 sm:hidden">
         {benefits.map((_, i) => (
           <div key={i} className="w-1 h-1 rounded-full bg-sky-400/20" />
         ))}
