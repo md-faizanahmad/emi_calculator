@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/comman/Footer";
 import { Header } from "@/components/header/Header";
 
 export default function TermsOfUse() {

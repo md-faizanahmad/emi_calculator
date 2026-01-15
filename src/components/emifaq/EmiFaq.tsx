@@ -6,6 +6,21 @@ import { ChevronDown } from "lucide-react";
 
 const faqData = [
   {
+    question: "What is an EMI?",
+    answer:
+      "EMI (Equated Monthly Installment) is a fixed payment amount made by a borrower to a lender at a specified date each month, covering both principal and interest.",
+  },
+  {
+    question: "How accurate are EMI Mitra’s calculators?",
+    answer:
+      "Our calculators use standard financial formulas to provide accurate EMI estimates based on your inputs. Always consult with your lender for final terms.",
+  },
+  {
+    question: "Is EMI Mitra free to use?",
+    answer:
+      "Yes, all our calculators are free to use with no login required, ensuring quick and easy access.",
+  },
+  {
     question: "What is a Home Loan EMI Calculator?",
     answer:
       "A home loan EMI calculator is a tool to estimate your monthly EMI (Equated Monthly Installment) for a home loan. It calculates payments based on the loan amount, interest rate, and tenure. For example, a ₹20,00,000 home loan at 8% interest for 10 years has an EMI of approximately ₹29,882. Use our home loan EMI calculator for accurate results.",

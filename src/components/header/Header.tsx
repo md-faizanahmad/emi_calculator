@@ -1,55 +1,151 @@
 "use client";
 
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Calculator } from "lucide-react";
-
-// Explicitly type headerVariants as Variants
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 0.1, 0.25, 1], // Bezier curve values
-    },
-  },
-};
+import { usePathname } from "next/navigation";
+import { Calculator, Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export const Header: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+
+  useEffect(() => setMounted(true), []);
+
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Blogs", path: "/blogs" },
+    { name: "FAQs", path: "/emifaq" },
+    { name: "Contact", path: "/contact_us" },
+  ];
+
+  if (!mounted) return <div className="h-20" />; // Prevent jump during load
+
   return (
-    <motion.header
-      initial="hidden"
-      animate="visible"
-      variants={headerVariants}
-      className="bg-gradient-to-r from-blue-100 via-cyan-50 to-blue-100 dark:from-blue-900 dark:via-blue-900 dark:to-blue-900 shadow-md py-4 px-4 sm:px-6"
-      aria-label="Main header"
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center hover:scale-105 transition-transform"
+    <header className="sticky top-0 z-50 w-full px-4 py-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Main Nav Container */}
+        <nav
+          style={{
+            backgroundColor: "var(--card-bg)",
+            borderColor: "var(--border)",
+          }}
+          className="relative flex items-center justify-between px-6 py-2 rounded-2xl border backdrop-blur-xl shadow-xl transition-all"
         >
-          <div className="font-bold text-black dark:text-white flex items-center">
-            <Calculator />
-            <h1 className="text-3xl">Emi Mitra</h1>
+          {/* Logo Section */}
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="p-2 rounded-xl bg-sky-400/10">
+              <Calculator className="w-6 h-6 text-sky-400" />
+            </div>
+            <span
+              className="text-xl font-bold tracking-tight"
+              style={{ color: "var(--foreground)" }}
+            >
+              Emi<span className="text-sky-400">Mitra</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation - Button Style */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.path;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                    isActive
+                      ? "bg-sky-400 text-white shadow-lg shadow-sky-400/30"
+                      : "hover:bg-[var(--nav-hover)]"
+                  }`}
+                  style={{ color: isActive ? "#fff" : "var(--foreground)" }}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+
+            <div
+              className="w-[1px] h-6 mx-2"
+              style={{ backgroundColor: "var(--border)" }}
+            />
+
+            {/* Premium Theme Switcher Button */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2.5 rounded-xl transition-all hover:ring-2 ring-sky-400"
+              style={{
+                backgroundColor: "var(--nav-hover)",
+                color: "var(--foreground)",
+              }}
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
           </div>
-        </Link>
-        <div className="bold flex items-center justify-between">
-          <Link title="Home" href="/" className="me-6">
-            Home
-          </Link>
-          <Link title="About" href="/about" className="me-2">
-            About
-          </Link>
-          <Link href="/emifaq" title="FAQ" className="ms-4">
-            EMI FAQ
-          </Link>
-        </div>
+
+          {/* Mobile Menu Controls */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2"
+              style={{ color: "var(--foreground)" }}
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg"
+              style={{
+                backgroundColor: "var(--nav-hover)",
+                color: "var(--foreground)",
+              }}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              style={{
+                backgroundColor: "var(--background)",
+                borderColor: "var(--border)",
+              }}
+              className="absolute left-4 right-4 mt-3 p-3 rounded-2xl border shadow-2xl md:hidden"
+            >
+              <div className="flex flex-col gap-1">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`px-4 py-3 rounded-xl text-base font-medium transition-all ${
+                      pathname === item.path
+                        ? "bg-sky-400 text-white"
+                        : "hover:bg-[var(--nav-hover)]"
+                    }`}
+                    style={{
+                      color:
+                        pathname === item.path ? "#fff" : "var(--foreground)",
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </motion.header>
+    </header>
   );
 };

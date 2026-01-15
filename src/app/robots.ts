@@ -16,7 +16,19 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: [
+          "/",
+          "/calculators/carloan",
+          "/calculators/homeloan",
+          "/calculators/basedonsalary",
+          "/about",
+          "/blogs",
+          "/emifaq",
+          "/privacy-policy",
+          "/term_of_use",
+          "/contact_us",
+        ],
+
         disallow: ["/private/", "/admin/"],
       },
     ],
