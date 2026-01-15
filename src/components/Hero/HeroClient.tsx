@@ -45,38 +45,41 @@ export default function HeroClient({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="relative pt-16 pb-20 sm:pt-24 sm:pb-32 lg:pt-6 lg:pb-16 px-4"
+      className="relative pt-12 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 px-4 overflow-hidden"
     >
-      {/* Background stays global from body grid in globals.css */}
+      {/* Decorative Gradient Glow for Desktop */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-sky-400/10 blur-[120px] pointer-events-none -z-10" />
 
-      <div className="relative max-w-5xl mx-auto text-center">
+      <div className="relative max-w-6xl mx-auto text-center">
         {/* Modern Badge */}
         <motion.div
           variants={itemVariants}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-8 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 sm:mb-10 backdrop-blur-md shadow-sm"
           style={{
             backgroundColor: "var(--card-bg)",
             borderColor: "var(--border)",
             color: "var(--foreground)",
           }}
         >
-          <Sparkles className="w-4 h-4 text-sky-400" />
-          <span className="text-xs font-bold tracking-widest uppercase">
+          <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+          <span className="text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase">
             The Smartest Way to Calculate
           </span>
         </motion.div>
 
-        {/* Title: Premium Bold Look */}
+        {/* Title: Fluid Typography */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[1.1]"
+          className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter mb-6 leading-[1.1] px-2"
           style={{ color: "var(--foreground)" }}
         >
           {title.split(" ").map((word, i) => (
             <span
               key={i}
               className={
-                word.toLowerCase().includes("emi") ? "text-sky-400" : ""
+                word.toLowerCase().includes("emi")
+                  ? "text-sky-400 drop-shadow-[0_0_15px_rgba(56,189,248,0.3)]"
+                  : ""
               }
             >
               {word}{" "}
@@ -84,55 +87,53 @@ export default function HeroClient({
           ))}
         </motion.h1>
 
-        {/* Subtitle: High Contrast & Readability */}
+        {/* Subtitle */}
         <motion.p
           variants={itemVariants}
-          className="text-lg sm:text-xl opacity-80 mb-10 max-w-2xl mx-auto leading-relaxed"
+          className="text-base sm:text-xl opacity-75 mb-10 max-w-2xl mx-auto leading-relaxed px-4"
           style={{ color: "var(--foreground)" }}
         >
           {subtitle}
         </motion.p>
 
-        {/* CTA Section */}
+        {/* CTA Section: Better Mobile Padding & Stacking */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row justify-center items-center gap-4"
+          className="flex flex-col sm:flex-row justify-center items-center gap-5 sm:gap-8 px-6"
         >
           <Link href={ctaUrl} prefetch={true} className="w-full sm:w-auto">
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="group relative w-full sm:w-auto px-10 py-4 bg-sky-400 text-white font-bold uppercase rounded-2xl overflow-hidden shadow-xl shadow-sky-400/20 transition-all"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="group relative w-full sm:w-auto px-8 py-4 bg-sky-400 text-white font-black text-sm uppercase tracking-widest rounded-2xl overflow-hidden shadow-lg shadow-sky-400/25 transition-all"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {ctaText}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-
-              {/* Sleek Hover Overlay */}
-              <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
             </motion.button>
           </Link>
 
           <Link
             href="/about"
-            className="text-sm font-bold uppercase tracking-widest hover:opacity-70 transition-opacity"
+            className="text-xs font-black uppercase tracking-[0.2em] hover:text-sky-400 transition-colors py-2"
             style={{ color: "var(--foreground)" }}
           >
             Learn More
           </Link>
         </motion.div>
 
-        {/* Minimalist Trust Indicators */}
+        {/* Trust Indicators: Optimized for small screens */}
         <motion.div
           variants={itemVariants}
-          className="mt-20 pt-10 border-t flex flex-wrap justify-center gap-10 opacity-40 grayscale hover:grayscale-0 transition-all duration-500"
+          className="mt-16 sm:mt-24 pt-8 border-t flex flex-wrap justify-center gap-6 sm:gap-12 opacity-50 transition-all duration-500"
           style={{ borderColor: "var(--border)" }}
         >
           {["Accurate", "Fast", "Free", "Secure"].map((text) => (
             <div
               key={text}
-              className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em]"
+              className="flex items-center gap-2 text-[10px] sm:text-xs font-black uppercase tracking-widest"
               style={{ color: "var(--foreground)" }}
             >
               <div className="w-1.5 h-1.5 bg-sky-400 rounded-full" />

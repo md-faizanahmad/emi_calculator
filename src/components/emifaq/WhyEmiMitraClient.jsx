@@ -29,7 +29,7 @@ export default function WhyEmiMitraClient({ benefits }) {
             }}
             // Compact styling: p-5 on mobile, p-8 on desktop
             // MD styling: shadow-sm, rounded-2xl
-            className="min-w-[75%] sm:min-w-full snap-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl 
+            className="min-w-[70%] sm:min-w-full snap-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl 
                        border backdrop-blur-md shadow-sm hover:shadow-md 
                        hover:border-sky-400/50 transition-all group shrink-0"
           >
