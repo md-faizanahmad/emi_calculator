@@ -1,6 +1,7 @@
+// blog/slug page
+
 import { Metadata } from "next";
-import { Header } from "@/components/header/Header";
-import Footer from "@/components/comman/Footer";
+
 import { notFound } from "next/navigation";
 import { readFile } from "fs/promises";
 import path from "path";
@@ -107,7 +108,6 @@ export default async function BlogPostPage({
         itemType="http://schema.org/BlogPosting"
         className="min-h-screen bg-gray-50"
       >
-        <Header />
         <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <article>
             <h1
@@ -130,7 +130,6 @@ export default async function BlogPostPage({
             </div>
           </article>
         </main>
-        <Footer />
       </div>
     </>
   );

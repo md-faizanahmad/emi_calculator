@@ -64,7 +64,7 @@ export default function Result({
       loanTenure,
       downPaymentPercentage: 20,
     },
-    result
+    result,
   );
   const creditScoreImpact = estimateCreditScoreImpact(
     {
@@ -74,7 +74,7 @@ export default function Result({
       loanTenure,
       downPaymentPercentage: 20,
     },
-    result
+    result,
   );
 
   // Chart data for EMI breakdown
@@ -165,7 +165,7 @@ export default function Result({
               animate={{
                 width: `${Math.min(
                   (result.monthlyEmi / monthlySalary) * 200,
-                  100
+                  100,
                 )}%`,
               }}
               transition={{ duration: 0.7, ease: "easeOut" }}

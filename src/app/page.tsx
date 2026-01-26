@@ -1,13 +1,11 @@
 // app/page.jsx
-import { Header } from "@/components/header/Header";
 import Hero from "@/components/Hero/Hero";
 import WhatIsEmi from "@/components/emifaq/WhatIsEmi";
 import WhyEmiMitra from "@/components/emifaq/WhyEmiMitra";
 import CalculatorGrid from "@/components/comman/CalculatorGrid";
-import PwaInstall from "@/components/comman/PWAinstall";
+// import PwaInstall from "@/components/comman/PWAinstall";
 import BlogPreview from "@/components/comman/BlogPreview";
 import EmiFaq from "@/components/emifaq/EmiFaq";
-import Footer from "@/components/comman/Footer";
 
 // SEO Metadata
 export async function generateMetadata() {
@@ -72,17 +70,16 @@ export default function HomePage() {
         itemType="http://schema.org/FinancialService"
         className="min-h-screen backdrop-blur-lg"
       >
-        <Header />
         <main className=" mx-auto  sm:px-6 lg:px-8">
           <Hero />
           <WhatIsEmi />
           <WhyEmiMitra />
           <CalculatorGrid />
-          <PwaInstall />
+          {/*   <PwaInstall />*/}
+
           <BlogPreview />
           <EmiFaq />
         </main>
-        <Footer />
       </div>
     </>
   );

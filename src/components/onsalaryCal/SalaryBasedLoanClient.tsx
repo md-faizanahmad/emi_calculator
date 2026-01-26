@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Result from "./SalaryResult";
 import {
   LoanInputs,
@@ -11,11 +11,9 @@ import {
   validateInputs,
 } from "@/utils/salaryutils";
 import { LoanHeader } from "../comman/LoanHeader";
-import Footer from "../comman/Footer";
 
-// Animation variants for inputs
 const inputVariants = {
-  focus: { scale: 1.02, transition: { duration: 0.2 } },
+  focus: { scale: 1.01, transition: { duration: 0.2 } },
   blur: { scale: 1, transition: { duration: 0.2 } },
 };
 
@@ -43,7 +41,7 @@ export default function SalaryBasedLoanCalculatorClient() {
   }, [inputs]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setInputs((prev) => ({
@@ -68,26 +66,23 @@ export default function SalaryBasedLoanCalculatorClient() {
   };
 
   return (
-    <>
+    <div className="bg-white min-h-screen">
       <LoanHeader />
-      <section className="py-12 px-4 sm:px-6 lg:px-8 text-black bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-900">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 text-black">
         <div className="max-w-4xl mx-auto">
           {/* Calculator Form */}
           <motion.div
-            className="bg-white/10 backdrop-blur-lg rounded-lg shadow-xl p-6 border border-white/20"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-sm border border-zinc-200 p-6 md:p-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
           >
-            <form className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <motion.div
-                variants={inputVariants}
-                whileFocus="focus"
-                whileHover="focus"
-              >
+            <form className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {/* Monthly Salary */}
+              <motion.div variants={inputVariants} whileFocus="focus">
                 <label
                   htmlFor="monthlySalary"
-                  className="block text-sm font-medium text-white mb-1"
+                  className="block text-sm font-bold text-black mb-2"
                 >
                   Monthly Salary ({currency === "INR" ? "₹" : "$"})
                 </label>
@@ -97,31 +92,24 @@ export default function SalaryBasedLoanCalculatorClient() {
                   id="monthlySalary"
                   value={inputs.monthlySalary}
                   onChange={handleInputChange}
-                  className="w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  aria-describedby="monthlySalary-help"
+                  className="w-full p-3 rounded-xl bg-white text-black border border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   required
                 />
                 {errors.monthlySalary && (
-                  <p className="text-red-400 text-xs mt-1">
+                  <p className="text-red-600 text-xs mt-1 font-medium">
                     {errors.monthlySalary}
                   </p>
                 )}
-                <p
-                  id="monthlySalary-help"
-                  className="text-xs text-gray-300 mt-1"
-                >
-                  Enter your net monthly take-home salary.
+                <p className="text-[11px] text-zinc-500 mt-1.5 font-medium">
+                  Net monthly take-home income.
                 </p>
               </motion.div>
 
-              <motion.div
-                variants={inputVariants}
-                whileFocus="focus"
-                whileHover="focus"
-              >
+              {/* Interest Rate */}
+              <motion.div variants={inputVariants} whileFocus="focus">
                 <label
                   htmlFor="interestRate"
-                  className="block text-sm font-medium text-white mb-1"
+                  className="block text-sm font-bold text-black mb-2"
                 >
                   Expected Interest Rate (%)
                 </label>
@@ -132,33 +120,30 @@ export default function SalaryBasedLoanCalculatorClient() {
                   value={inputs.interestRate}
                   onChange={handleInputChange}
                   step="0.1"
-                  className="w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  aria-describedby="interestRate-help"
+                  className="w-full p-3 rounded-xl bg-white text-black border border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   required
                 />
                 {errors.interestRate && (
-                  <p className="text-red-400 text-xs mt-1">
+                  <p className="text-red-600 text-xs mt-1 font-medium">
                     {errors.interestRate}
                   </p>
                 )}
-                <p
-                  id="interestRate-help"
-                  className="text-xs text-gray-300 mt-1"
-                >
-                  Typical rates range from 8% to 15%.
+                <p className="text-[11px] text-zinc-500 mt-1.5 font-medium">
+                  Typical rates: 8% to 15%.
                 </p>
               </motion.div>
 
+              {/* Desired EMI */}
               <motion.div
                 variants={inputVariants}
                 whileFocus="focus"
-                whileHover="focus"
+                className="sm:col-span-1"
               >
                 <label
                   htmlFor="desiredEmi"
-                  className="block text-sm font-medium text-white mb-1"
+                  className="block text-sm font-bold text-black mb-2"
                 >
-                  Desired EMI per Month ({currency === "INR" ? "₹" : "$"})
+                  Desired Monthly EMI ({currency === "INR" ? "₹" : "$"})
                 </label>
                 <input
                   type="number"
@@ -166,42 +151,34 @@ export default function SalaryBasedLoanCalculatorClient() {
                   id="desiredEmi"
                   value={inputs.desiredEmi}
                   onChange={handleInputChange}
-                  className="w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  aria-describedby="desiredEmi-help"
+                  className="w-full p-3 rounded-xl bg-white text-black border border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   required
                 />
                 {errors.desiredEmi && (
-                  <p className="text-red-400 text-xs mt-1">
+                  <p className="text-red-600 text-xs mt-1 font-medium">
                     {errors.desiredEmi}
                   </p>
                 )}
-                <p id="desiredEmi-help" className="text-xs text-gray-300 mt-1">
-                  Enter the EMI you can comfortably pay monthly.
-                </p>
-                <div className="flex gap-2 mt-2">
-                  {[5000, 10000, 15000, 20000].map((emi) => (
-                    <motion.button
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {[5000, 10000, 15000].map((emi) => (
+                    <button
                       key={emi}
+                      type="button"
                       onClick={() => handlePresetEmi(emi)}
-                      className="px-3 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg hover:from-purple-600 hover:to-blue-600 transition"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      className="px-3 py-1 text-xs font-bold border border-zinc-200 rounded-full hover:bg-zinc-100 transition-colors text-black"
                     >
                       {currency === "INR" ? "₹" : "$"}
                       {emi.toLocaleString()}
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
               </motion.div>
 
-              <motion.div
-                variants={inputVariants}
-                whileFocus="focus"
-                whileHover="focus"
-              >
+              {/* Loan Tenure */}
+              <motion.div variants={inputVariants} whileFocus="focus">
                 <label
                   htmlFor="loanTenure"
-                  className="block text-sm font-medium text-white mb-1"
+                  className="block text-sm font-bold text-black mb-2"
                 >
                   Loan Tenure (Years)
                 </label>
@@ -210,35 +187,26 @@ export default function SalaryBasedLoanCalculatorClient() {
                   id="loanTenure"
                   value={inputs.loanTenure}
                   onChange={handleInputChange}
-                  className="w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  aria-describedby="loanTenure-help"
+                  className="w-full p-3 rounded-xl bg-white text-black border border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all appearance-none cursor-pointer"
                 >
-                  {[1, 2, 3, 4, 5, 7, 10].map((year) => (
+                  {[1, 2, 3, 5, 7, 10].map((year) => (
                     <option key={year} value={year}>
-                      {year} {year === 1 ? "year" : "years"}
+                      {year} {year === 1 ? "Year" : "Years"}
                     </option>
                   ))}
                 </select>
-                {errors.loanTenure && (
-                  <p className="text-red-400 text-xs mt-1">
-                    {errors.loanTenure}
-                  </p>
-                )}
-                <p id="loanTenure-help" className="text-xs text-gray-300 mt-1">
-                  Choose the loan repayment period.
+                <p className="text-[11px] text-zinc-500 mt-1.5 font-medium">
+                  Total repayment duration.
                 </p>
               </motion.div>
 
-              <motion.div
-                variants={inputVariants}
-                whileFocus="focus"
-                whileHover="focus"
-              >
+              {/* Down Payment */}
+              <motion.div variants={inputVariants} whileFocus="focus">
                 <label
                   htmlFor="downPaymentPercentage"
-                  className="block text-sm font-medium text-white mb-1"
+                  className="block text-sm font-bold text-black mb-2"
                 >
-                  Down Payment Percentage (%)
+                  Down Payment (%)
                 </label>
                 <input
                   type="number"
@@ -246,103 +214,90 @@ export default function SalaryBasedLoanCalculatorClient() {
                   id="downPaymentPercentage"
                   value={inputs.downPaymentPercentage}
                   onChange={handleInputChange}
-                  step="1"
-                  className="w-full p-3 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  aria-describedby="downPaymentPercentage-help"
+                  className="w-full p-3 rounded-xl bg-white text-black border border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
                   required
                 />
-                {errors.downPaymentPercentage && (
-                  <p className="text-red-400 text-xs mt-1">
-                    {errors.downPaymentPercentage}
-                  </p>
-                )}
-                <p
-                  id="downPaymentPercentage-help"
-                  className="text-xs text-gray-300 mt-1"
-                >
-                  Enter the percentage of the loan amount for down payment
-                  (0-50%).
+                <p className="text-[11px] text-zinc-500 mt-1.5 font-medium">
+                  Percentage you pay upfront (0-50%).
                 </p>
               </motion.div>
             </form>
 
-            <div className="flex gap-4 mt-4">
-              <motion.button
+            <hr className="my-8 border-zinc-100" />
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3">
+              <button
                 onClick={handleReset}
-                className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg hover:from-red-600 hover:to-pink-600 transition transform hover:scale-105"
-                aria-label="Reset form"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 text-sm font-bold text-black border border-zinc-200 rounded-xl hover:bg-zinc-50 transition-all active:scale-95"
               >
-                Reset to Defaults
-              </motion.button>
-              <motion.button
+                Reset
+              </button>
+              <button
                 onClick={() => setCurrency(currency === "INR" ? "USD" : "INR")}
-                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg hover:from-blue-600 hover:to-indigo-600 transition transform hover:scale-105"
-                aria-label="Toggle currency"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="px-5 py-2.5 text-sm font-bold text-black border border-zinc-200 rounded-xl hover:bg-zinc-50 transition-all active:scale-95"
               >
-                Switch to {currency === "INR" ? "USD" : "INR"}
-              </motion.button>
-              <motion.button
+                {currency === "INR" ? "Switch to USD" : "Switch to INR"}
+              </button>
+              <button
                 onClick={() => setShowTips(!showTips)}
-                className="px-4 py-2 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-lg hover:from-green-600 hover:to-teal-600 transition transform hover:scale-105"
-                aria-label="Toggle affordability tips"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className={`px-5 py-2.5 text-sm font-bold rounded-xl transition-all active:scale-95 ${
+                  showTips
+                    ? "bg-black text-white"
+                    : "bg-blue-50 text-blue-700 hover:bg-blue-100"
+                }`}
               >
-                {showTips ? "Hide Tips" : "Show Tips"}
-              </motion.button>
+                {showTips ? "Hide Tips" : "Affordability Tips"}
+              </button>
             </div>
 
-            {/* Affordability Tips */}
-            {showTips && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-4 p-4 bg-white/10 backdrop-blur-lg rounded-lg border border-white/20"
-              >
-                <h3 className="text-lg font-medium text-white mb-2">
-                  Loan Affordability Tips
-                </h3>
-                <ul className="list-disc list-inside text-gray-200 space-y-2 text-sm">
-                  <li>
-                    Keep your EMI below 40% of your take-home salary for
-                    financial safety.
-                  </li>
-                  <li>
-                    Consider a longer tenure to reduce monthly EMI, but note
-                    higher total interest.
-                  </li>
-                  <li>
-                    A higher down payment (20-30%) reduces your loan amount and
-                    interest burden.
-                  </li>
-                  <li>
-                    Check your credit score before applying to secure better
-                    interest rates.
-                  </li>
-                  <li>
-                    Compare offers from multiple banks for the best terms.
-                  </li>
-                </ul>
-              </motion.div>
-            )}
+            {/* Tips Section */}
+            <AnimatePresence>
+              {showTips && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="mt-6 overflow-hidden"
+                >
+                  <div className="p-5 bg-zinc-50 rounded-2xl border border-zinc-100">
+                    <h3 className="text-sm font-bold text-black mb-3 text-center">
+                      Loan Affordability Guide
+                    </h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {[
+                        "Keep EMI below 40% of salary.",
+                        "Longer tenure reduces EMI but costs more interest.",
+                        "20-30% down payment is ideal.",
+                        "Check credit score for better rates.",
+                      ].map((tip, i) => (
+                        <li
+                          key={i}
+                          className="text-xs text-zinc-700 flex items-center gap-2"
+                        >
+                          <span className="w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0" />
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Results Section */}
-          <Result
-            result={result}
-            monthlySalary={inputs.monthlySalary}
-            interestRate={inputs.interestRate}
-            loanTenure={inputs.loanTenure}
-            currency={currency}
-          />
+          <div className="mt-8">
+            <Result
+              result={result}
+              monthlySalary={inputs.monthlySalary}
+              interestRate={inputs.interestRate}
+              loanTenure={inputs.loanTenure}
+              currency={currency}
+            />
+          </div>
         </div>
       </section>
-      <Footer />
-    </>
+    </div>
   );
 }

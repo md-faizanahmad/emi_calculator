@@ -3,12 +3,23 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import Script from "next/script";
 import InstallPWA from "@/components/pwa/InstallPWA";
+import Footer from "@/components/comman/Footer";
+import { Header } from "@/components/header/Header";
 export const metadata: Metadata = {
   metadataBase: new URL("https://emimitra.online"),
   title: "EMI Calculator | Home Loan, Car Loan",
   description:
     "Calculate your EMI for products, home loans, and car loans with ease.",
-  keywords: ["EMI calculator", "loan calculator", "Emi Mitra", "finance tool"],
+  keywords: [
+    "vehicle loan emi calculator",
+    "phone loan emi calculator",
+    "Salary Breakup",
+    "hand on Breakup",
+    "EMI calculator",
+    "loan calculator",
+    "Emi Mitra",
+    "finance tool",
+  ],
   openGraph: {
     title: "EMI Calculator",
     description: "Calculate your EMI with our user-friendly tool.",
@@ -77,7 +88,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           crossOrigin="anonymous"
         />
         <div className="flex flex-col min-h-screen">
+          <Header />
           <main className="flex-grow">{children}</main>
+          <Footer />
         </div>
         <InstallPWA />
       </body>

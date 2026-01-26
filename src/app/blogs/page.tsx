@@ -1,10 +1,6 @@
 // app/blog/page.tsx
 import { Metadata } from "next";
-import { Header } from "@/components/header/Header";
-import Footer from "@/components/comman/Footer";
 import BlogListClient from "@/components/blog/BlogListClient";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { readFile } from "fs/promises";
 import path from "path";
 
@@ -84,14 +80,12 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Analytics />
-      <SpeedInsights />
+
       <div
         itemScope
         itemType="http://schema.org/Blog"
         className="min-h-screen bg-gray-50"
       >
-        <Header />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <section className="text-center py-16">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
@@ -104,7 +98,6 @@ export default async function BlogPage() {
           </section>
           <BlogListClient blogPosts={blogPosts} />
         </main>
-        <Footer />
       </div>
     </>
   );

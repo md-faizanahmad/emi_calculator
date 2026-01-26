@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Calculator, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 // Header animation variants
 const headerVariants: Variants = {
@@ -59,7 +59,6 @@ export const LoanHeader: React.FC = () => {
   const pathname = usePathname();
 
   const navItems = [
-    { name: "Home", path: "/", title: "Home Page" },
     {
       name: "Home Loan",
       path: "/calculators/homeloan",
@@ -92,30 +91,11 @@ export const LoanHeader: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={headerVariants}
-      className="sticky top-0 z-50 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 backdrop-blur-lg shadow-[0_4px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_30px_rgba(255,255,255,0.1)] py-4 px-4 sm:px-6"
+      className="sticky top-0 z-50    py-4 px-4 sm:px-6"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex justify-center items-center  ">
         {/* Logo and Site Name */}
-        <Link
-          href="/"
-          prefetch={true}
-          className="flex items-center group hover:scale-105 transition-transform duration-300"
-          aria-label="Emi Mitra homepage"
-          title="Emi Mitra Home"
-        >
-          <div className="flex items-center gap-3">
-            <motion.div
-              whileHover={{ rotate: 360, scale: 1.2 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <Calculator className="w-8 h-8 text-blue-400 group-hover:text-blue-300" />
-            </motion.div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-300">
-              Emi Mitra
-            </h1>
-          </div>
-        </Link>
 
         {/* Desktop Navigation */}
         <nav
@@ -139,14 +119,14 @@ export const LoanHeader: React.FC = () => {
                     className={`text-base lg:text-lg font-medium transition-colors ${
                       pathname === item.path
                         ? "text-blue-400 font-semibold"
-                        : "text-gray-800 dark:text-black"
-                    } hover:shadow-[0_0_10px_rgba(96,165,250,0.5)] rounded-md px-3 py-1`}
+                        : " text-black"
+                    } hover:text-gray-500 rounded-md px-3 py-1`}
                     aria-current={pathname === item.path ? "page" : undefined}
                   >
                     {item.name}
                     {pathname === item.path && (
                       <motion.div
-                        className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 shadow-[0_0_8px_rgba(96,165,250,0.6)]"
+                        className="absolute -bottom-1 left-0 w-full h-0.5  shadow-[0_0_8px_rgba(96,165,250,0.6)]"
                         layoutId="underline"
                         transition={{ duration: 0.2, ease: "easeOut" }}
                       />
@@ -160,7 +140,7 @@ export const LoanHeader: React.FC = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-gray-800 dark:text-gray-200 p-2 rounded-full hover:bg-blue-500/20 transition-colors"
+          className="md:hidden text-gray-800  p-2 rounded-full hover:bg-blue-500/20 transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label={
             isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
@@ -181,7 +161,7 @@ export const LoanHeader: React.FC = () => {
         variants={mobileMenuVariants}
         initial="closed"
         animate={isMobileMenuOpen ? "open" : "closed"}
-        className="md:hidden overflow-hidden bg-gradient-to-r from-blue-500/10 text-black to-blue-900/10 backdrop-blur-lg shadow-lg"
+        className="md:hidden overflow-hidden  text-black  backdrop-blur-lg shadow-lg"
         aria-label="Mobile navigation"
       >
         <ul className="flex flex-col items-start gap-4 py-6">
